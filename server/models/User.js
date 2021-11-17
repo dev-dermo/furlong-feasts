@@ -3,22 +3,34 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
       match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
       type: String,
       required: true,
+      trim: true,
+      minlength: [8, 'Password must be at least 8 characters'],
+    },
+    role: {
+      type: String,
+      required: true,
+      enum: ['user', 'admin'],
+      default: 'user',
     },
   },
+  {
+    timestamps: true,
+  }
   // set this to use virtual below
   // {
   //   toJSON: {

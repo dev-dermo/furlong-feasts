@@ -1,4 +1,5 @@
 const express = require('express');
+const logger = require('morgan');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 
@@ -16,6 +17,7 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(logger('tiny'));
 
 db.once('open', () => {
   server.start().then(res => {
